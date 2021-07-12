@@ -1,5 +1,6 @@
 from tensorflow import keras
 
+
 (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
 print(x_train.shape)  # (60000, 28, 28)
 print(x_test.shape)
@@ -12,6 +13,7 @@ x_test = x_test.astype("float32") / 255
 # Flatten images
 model = keras.Sequential([
     keras.layers.Flatten(input_shape=(28, 28)),
+    keras.layers.Dense(150, activation='relu'),
     keras.layers.Dense(10, activation='softmax')
 ])
 
