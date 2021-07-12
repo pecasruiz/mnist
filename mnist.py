@@ -10,17 +10,6 @@ class_names = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 x_train = x_train.astype("float32") / 255
 x_test = x_test.astype("float32") / 255
 
-# Representamos los digitos
-plt.figure(figsize=(10, 10))
-for i in range(25):
-    plt.subplot(5, 5, i+1)
-    plt.xticks([])
-    plt.yticks([])
-    plt.grid(False)
-    plt.imshow(x_train[i], cmap=plt.cm.binary)
-    plt.xlabel(class_names[y_train[i]])
-plt.show()
-
 # Flatten images
 model = keras.Sequential([
     keras.layers.Flatten(input_shape=(28, 28)),
