@@ -1,5 +1,5 @@
 from tensorflow import keras
-
+from matplotlib import pyplot as plt
 
 (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
 print(x_train.shape)  # (60000, 28, 28)
@@ -13,7 +13,8 @@ x_test = x_test.astype("float32") / 255
 # Flatten images
 model = keras.Sequential([
     keras.layers.Flatten(input_shape=(28, 28)),
-    keras.layers.Dense(150, activation='relu'),
+    keras.layers.Dense(200, activation='relu'),
+    keras.layers.Dropout(0.5),
     keras.layers.Dense(10, activation='softmax')
 ])
 
@@ -23,8 +24,29 @@ model.compile(optimizer='adam',
               metrics=['accuracy'])
 
 # Entrenamos
-model.fit(x_train, y_train, epochs=10)
+history = model.fit(x_train, y_train, epochs=10)
 
 # Comprobamos la precision
 test_loss, test_acc = model.evaluate(x_test,  y_test, verbose=2)
 print('\nTest accuracy:', test_acc)
+
+print(history.history.keys())
+
+
+# PLot del acurracy y las perdidas
+fig, (ax1, ax2) = plt.subplots(1, 2)
+
+# summarize history for accuracy
+ax1.plot(history.history['accuracy'])
+# plt.plot(history.history['val_accuracy'])
+ax1.set_title('model accuracy')
+ax1.set(xlabel='epoch', ylabel='accuracy')
+ax1.legend(['train', 'test'], loc='upper left')
+
+# summarize history for loss
+ax2.plot(history.history['loss'])
+# plt.plot(history.history['val_loss'])
+ax2.set_title('model loss')
+ax2.set(xlabel='epoch', ylabel='loss')
+ax2.legend(['train', 'test'], loc='upper left')
+plt.show()
