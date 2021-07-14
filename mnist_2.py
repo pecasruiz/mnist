@@ -12,7 +12,7 @@ class_names = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 x_train = x_train.astype("float32") / 255
 x_test = x_test.astype("float32") / 255
 
-# Flatten images
+# Create the model
 model = keras.Sequential([
     keras.layers.Flatten(input_shape=(28, 28)),
     keras.layers.Dense(150, activation='relu'),
