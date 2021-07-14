@@ -7,11 +7,22 @@ from matplotlib import pyplot as plt
 print(x_train.shape)  # (60000, 28, 28)
 print(x_test.shape)
 
-input_shape = (60000, 28, 28, 1)
+# reshape dataset to have a single channel
+x_train = x_train.reshape((x_train.shape[0], 28, 28, 1))
+x_test = x_test.reshape((x_test.shape[0], 28, 28, 1))
+
+# Pasamos la imagen de prayscale a binaria
+x_train = x_train.astype("float32") / 255
+x_test = x_test.astype("float32") / 255
+
+
 # Create the model
 model = keras.Sequential([
-    keras.layers.Conv2D(
-                        2, 3, activation='relu', input_shape=input_shape[1:]),
+    keras.layers.Conv2D(32, (3, 3), activation='relu',
+                        input_shape=(28, 28, 1)),
+    keras.layers.MaxPooling2D((2, 2)),
+    keras.layers.Flatten(),
+    keras.layers.Dense(100, activation='relu'),
     keras.layers.Dense(10, activation='softmax')
 ])
 
