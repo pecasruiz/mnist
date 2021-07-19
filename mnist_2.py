@@ -1,6 +1,6 @@
 from tensorflow import keras
 from matplotlib import pyplot as plt
-from tensorflow.python.keras.layers.core import Dropout
+
 
 # Cargamos los datos
 (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
